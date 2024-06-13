@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AFL Clicker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #clicker-button {
+            padding: 20px;
+            font-size: 24px;
+            margin: 20px;
+        }
+        .upgrade-button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>AFL Clicker</h1>
+    <p>Clicks: <span id="click-count">0</span></p>
+    <p>Clicks per Second (CPS): <span id="cps">0</span></p>
+    <button id="clicker-button">Click me!</button>
+    <h2>Upgrades</h2>
+    <button class="upgrade-button" onclick="buyUpgrade(10, 1)">Buy +1 CPS (Cost: 10 clicks)</button>
+    <button class="upgrade-button" onclick="buyUpgrade(20, 10)">Buy +10 CPS (Cost: 20 clicks)</button>
+    <button class="upgrade-button" onclick="buyUpgrade(40, 20)">Buy +20 CPS (Cost: 40 clicks)</button
+	<button class="upgrade-button" onclick="buyUpgrade(60, 40)">Buy +40 CPS (Cost: 60 clicks)</button>
+	<button class="upgrade-button" onclick="buyUpgrade(80, 60)">Buy +60 CPS (Cost: 80 clicks)</button>
+	<button class="upgrade-button" onclick="buyUpgrade(100, 80)">Buy +80 CPS (Cost: 100 clicks)</button>
+
+    <script>
+        let clicks = 0;
+        let cps = 0;
+
+        document.getElementById('clicker-button').addEventListener('click', () => {
+            clicks++;
+            updateDisplay();
+        });
+
+        function buyUpgrade(cost, cpsIncrease) {
+            if (clicks >= cost) {
+                clicks -= cost;
+                cps += cpsIncrease;
+                updateDisplay();
+            } else {
+                alert('Not enough clicks!');
+            }
+        }
+
+        function updateDisplay() {
+            document.getElementById('click-count').textContent = clicks;
+            document.getElementById('cps').textContent = cps;
+        }
+
+        setInterval(() => {
+            clicks += cps;
+            updateDisplay();
+        }, 1000);
+    </script>
+</body>
+</html>
