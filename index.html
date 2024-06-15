@@ -3,66 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AFL Clicker</title>
+    <title>Clicker Game</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin-top: 50px;
-        }
-        #clicker-button {
-            padding: 20px;
-            font-size: 24px;
             margin: 20px;
         }
-        .upgrade-button {
-            padding: 10px;
+        #football {
+            width: 100px;
+            cursor: pointer;
+        }
+        .button {
+            padding: 10px 20px;
             margin: 10px;
-            font-size: 18px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+        .store {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>AFL Clicker</h1>
-    <p>Clicks: <span id="click-count">0</span></p>
-    <p>Clicks per Second (CPS): <span id="cps">0</span></p>
-    <img src="images/clickball.jpg" height="256px" width="266px" onclick="addTToClickCount(1)">
+
+<h1>Clicker Game</h1>
+<p>Click Score: <span id="score">0</span></p>
+<img id="football" src="https://upload.wikimedia.org/wikipedia/commons/3/36/AustralianFootball.JPG" alt="Australian Football">
+<div class="store">
     <h2>Upgrades</h2>
-    <button class="upgrade-button" onclick="buyUpgrade(10, 1)">Buy +1 CPS (Cost: 10 clicks)</button>
-    <button class="upgrade-button" onclick="buyUpgrade(20, 10)">Buy +10 CPS (Cost: 20 clicks)</button>
-    <button class="upgrade-button" onclick="buyUpgrade(40, 20)">Buy +20 CPS (Cost: 40 clicks)</button>
-	<button class="upgrade-button" onclick="buyUpgrade(60, 40)">Buy +40 CPS (Cost: 60 clicks)</button>
-	<button class="upgrade-button" onclick="buyUpgrade(80, 60)">Buy +60 CPS (Cost: 80 clicks)</button>
-	<button class="upgrade-button" onclick="buyUpgrade(100, 80)">Buy +80 CPS (Cost: 100 clicks)</button>
+    <button class="button" id="upgrade1" onclick="buyUpgrade(1)">Upgrade 1 (Cost: 50, +1 CPS)</button>
+    <button class="button" id="upgrade2" onclick="buyUpgrade(2)" disabled>Upgrade 2 (Cost: 200, +5 CPS)</button>
+    <button class="button" id="upgrade3" onclick="buyUpgrade(3)" disabled>Upgrade 3 (Cost: 500, +10 CPS)</button>
+</div>
 
-    <script>
-        let clicks = 0;
-        let cps = 0;
+<script>
+    let score = 0;
+    let cps = 0; // clicks per second
+    const upgradeCosts = [50, 200, 500];
+    const upgradeValues = [1, 5, 10];
 
-        document.getElementById('clicker-button').addEventListener('click', () => {
-            clicks++;
-            updateDisplay();
-        });
+    document.getElementById('football').addEventListener('click', () => {
+        score++;
+        document.getElementById('score').innerText = score;
+        checkUpgrades();
+    });
 
-        function buyUpgrade(cost, cpsIncrease) {
-            if (clicks >= cost) {
-                clicks -= cost;
-                cps += cpsIncrease;
-                updateDisplay();
-            } else {
-                alert('Not enough clicks!');
+    function buyUpgrade(upgradeNumber) {
+        if (score >= upgradeCosts[upgradeNumber - 1]) {
+            score -= upgradeCosts[upgradeNumber - 1];
+            cps += upgradeValues[upgradeNumber - 1];
+            document.getElementById('score').innerText = score;
+            document.getElementById(`upgrade${upgradeNumber}`).disabled = true;
+            if (upgradeNumber < 3) {
+                document.getElementById(`upgrade${upgradeNumber + 1}`).disabled = false;
             }
         }
+    }
 
-        function updateDisplay() {
-            document.getElementById('click-count').textContent = clicks;
-            document.getElementById('cps').textContent = cps;
+    function checkUpgrades() {
+        for (let i = 1; i <= 3; i++) {
+            if (score >= upgradeCosts[i - 1]) {
+                document.getElementById(`upgrade${i}`).disabled = false;
+            } else {
+                document.getElementById(`upgrade${i}`).disabled = true;
+            }
         }
+    }
 
-        setInterval(() => {
-            clicks += cps;
-            updateDisplay();
-        }, 1000);
-    </script>
+    function updateScore() {
+        score += cps;
+        document.getElementById('score').innerText = score;
+        checkUpgrades();
+    }
+
+    setInterval(updateScore, 1000);
+</script>
+
 </body>
 </html>
