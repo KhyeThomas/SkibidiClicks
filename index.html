@@ -26,6 +26,7 @@
         document.getElementById('clicker-button').addEventListener('click', () => {
             clicks++;
             updateDisplay();
+            saveProgress();
         });
 
         function buyUpgrade(cost, cpsIncrease) {
@@ -33,6 +34,7 @@
                 clicks -= cost;
                 cps += cpsIncrease;
                 updateDisplay();
+                saveProgress();
             } else {
                 alert('Not enough clicks!');
             }
@@ -46,22 +48,23 @@
         function saveProgress() {
             localStorage.setItem('clicks', clicks);
             localStorage.setItem('cps', cps);
-            alert('Progress saved!');
         }
 
         function loadProgress() {
             clicks = parseInt(localStorage.getItem('clicks')) || 0;
             cps = parseInt(localStorage.getItem('cps')) || 0;
             updateDisplay();
-            alert('Progress loaded!');
         }
 
         document.getElementById('save-button').addEventListener('click', saveProgress);
         document.getElementById('load-button').addEventListener('click', loadProgress);
 
+        window.addEventListener('load', loadProgress);
+
         setInterval(() => {
             clicks += cps;
             updateDisplay();
+            saveProgress();
         }, 1000);
     </script>
 </body>
