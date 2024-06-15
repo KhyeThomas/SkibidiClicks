@@ -1,27 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link href="style.css" rel="stylesheet" type="text/css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AFL Clicker</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-        #clicker-button {
-            padding: 20px;
-            font-size: 24px;
-            margin: 20px;
-        }
-        .upgrade-button {
-            padding: 10px;
-            margin: 10px;
-            font-size: 18px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>AFL Clicker</h1>
@@ -32,6 +15,9 @@
     <button class="upgrade-button" onclick="buyUpgrade(10, 1)">Buy +1 CPS (Cost: 10 clicks)</button>
     <button class="upgrade-button" onclick="buyUpgrade(50, 5)">Buy +5 CPS (Cost: 50 clicks)</button>
     <button class="upgrade-button" onclick="buyUpgrade(100, 10)">Buy +10 CPS (Cost: 100 clicks)</button>
+    <br><br>
+    <button id="save-button">Save Progress</button>
+    <button id="load-button">Load Progress</button>
 
     <script>
         let clicks = 0;
@@ -56,6 +42,22 @@
             document.getElementById('click-count').textContent = clicks;
             document.getElementById('cps').textContent = cps;
         }
+
+        function saveProgress() {
+            localStorage.setItem('clicks', clicks);
+            localStorage.setItem('cps', cps);
+            alert('Progress saved!');
+        }
+
+        function loadProgress() {
+            clicks = parseInt(localStorage.getItem('clicks')) || 0;
+            cps = parseInt(localStorage.getItem('cps')) || 0;
+            updateDisplay();
+            alert('Progress loaded!');
+        }
+
+        document.getElementById('save-button').addEventListener('click', saveProgress);
+        document.getElementById('load-button').addEventListener('click', loadProgress);
 
         setInterval(() => {
             clicks += cps;
