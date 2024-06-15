@@ -1,0 +1,63 @@
+/* style.css */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    color: #333;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    margin-top: 50px;
+    font-size: 48px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#clicker-button {
+    padding: 20px 40px;
+    font-size: 24px;
+    margin: 20px;
+    border: none;
+    background-color: #ffca28;
+    color: #333;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+#clicker-button:hover {
+    background-color: #ffb300;
+    transform: scale(1.05);
+}
+
+.upgrade-button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 18px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.upgrade-button:hover {
+    background-color: #43a047;
+    transform: scale(1.05);
+}
+
+p {
+    font-size: 24px;
+    color: #fff;
+}
+
+h2 {
+    font-size: 32px;
+    margin-top: 30px;
+    color: #fff;
+}
