@@ -61,3 +61,22 @@ h2 {
     margin-top: 30px;
     color: #fff;
 }
+
+#save-button, #load-button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 18px;
+    border: none;
+    background-color: #1e88e5;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+#save-button:hover, #load-button:hover {
+    background-color: #1565c0;
+    transform: scale(1.05);
+}
+
