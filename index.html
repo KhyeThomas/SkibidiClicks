@@ -18,13 +18,15 @@
     <br><br>
     <button id="save-button">Save Progress</button>
     <button id="load-button">Load Progress</button>
+    <button id="prestige-button" onclick="prestige()" disabled>Prestige</button>
 
     <script>
         let clicks = 0;
         let cps = 0;
+        let clickMultiplier = 1;
 
         document.getElementById('clicker-button').addEventListener('click', () => {
-            clicks++;
+            clicks += clickMultiplier;
             updateDisplay();
             saveProgress();
         });
@@ -43,17 +45,33 @@
         function updateDisplay() {
             document.getElementById('click-count').textContent = clicks;
             document.getElementById('cps').textContent = cps;
+            document.getElementById('prestige-button').disabled = clicks < 10000;
         }
 
         function saveProgress() {
             localStorage.setItem('clicks', clicks);
             localStorage.setItem('cps', cps);
+            localStorage.setItem('clickMultiplier', clickMultiplier);
         }
 
         function loadProgress() {
             clicks = parseInt(localStorage.getItem('clicks')) || 0;
             cps = parseInt(localStorage.getItem('cps')) || 0;
+            clickMultiplier = parseInt(localStorage.getItem('clickMultiplier')) || 1;
             updateDisplay();
+        }
+
+        function prestige() {
+            if (clicks >= 10000) {
+                clicks = 0;
+                cps = 0;
+                clickMultiplier *= 2;
+                saveProgress();
+                updateDisplay();
+                alert(`You have prestiged! Clicks are now worth ${clickMultiplier}x more!`);
+            } else {
+                alert('You need at least 10,000 clicks to prestige!');
+            }
         }
 
         document.getElementById('save-button').addEventListener('click', saveProgress);
@@ -69,4 +87,3 @@
     </script>
 </body>
 </html>
-
