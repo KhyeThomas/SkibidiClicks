@@ -62,7 +62,7 @@ h2 {
     color: #fff;
 }
 
-#save-button, #load-button {
+#save-button, #load-button, #prestige-button {
     padding: 10px 20px;
     margin: 10px;
     font-size: 18px;
@@ -75,8 +75,7 @@ h2 {
     transition: background-color 0.3s ease, transform 0.2s;
 }
 
-#save-button:hover, #load-button:hover {
+#save-button:hover, #load-button:hover, #prestige-button:hover {
     background-color: #1565c0;
     transform: scale(1.05);
 }
-
