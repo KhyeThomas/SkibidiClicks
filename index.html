@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <title>Boring Clicker</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let password = prompt("Enter the password to access the website:");
+            if (password !== 'PaddyBraxKhye') {
+                alert("Incorrect password! Access denied.");
+                document.body.innerHTML = ''; // Clear the body content if the password is incorrect
+            }
+        });
+    </script>
 </head>
 <body>
     <h1>Boring Clicker</h1>
