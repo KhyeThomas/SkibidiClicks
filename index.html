@@ -12,11 +12,11 @@
     <p>Clicks per Second (CPS): <span id="cps">0</span></p>
     <button id="clicker-button">Click me!</button>
     <h2>Upgrades</h2>
-    <button class="upgrade-button" onclick="buyUpgrade(10, 1)">Buy +1 CPS (Cost: 10 clicks)</button>
-    <button class="upgrade-button" onclick="buyUpgrade(50, 5)">Buy +5 CPS (Cost: 50 clicks)</button>
-    <button class="upgrade-button" onclick="buyUpgrade(100, 10)">Buy +10 CPS (Cost: 100 clicks)</button>
-    <button class="upgrade-button" onclick="buyUpgrade(500, 100)">Buy +100 CPS (Cost: 500 clicks)</button>
-    <button class="upgrade-button" onclick="buyUpgrade(1000, 500)">Buy +500 CPS (Cost: 1000 clicks)</button>
+    <button class="upgrade-button" onclick="buyUpgrade(10, 0.1, 0)">Buy +0.1 CPS (Cost: 10 clicks)</button>
+    <button class="upgrade-button" onclick="buyUpgrade(50, 0.5, 1)">Buy +0.5 CPS (Cost: 50 clicks)</button>
+    <button class="upgrade-button" onclick="buyUpgrade(100, 1, 2)">Buy +1 CPS (Cost: 100 clicks)</button>
+    <button class="upgrade-button" onclick="buyUpgrade(500, 5, 3)">Buy +5 CPS (Cost: 500 clicks)</button>
+    <button class="upgrade-button" onclick="buyUpgrade(1000, 10, 4)">Buy +10 CPS (Cost: 1000 clicks)</button>
     <br><br>
     <button id="save-button">Save Progress</button>
     <button id="load-button">Load Progress</button>
@@ -26,6 +26,13 @@
         let clicks = 0;
         let cps = 0;
         let clickMultiplier = 1;
+        let upgrades = [
+            { cost: 10, cpsIncrease: 0.1 },
+            { cost: 50, cpsIncrease: 0.5 },
+            { cost: 100, cpsIncrease: 1 },
+            { cost: 500, cpsIncrease: 5 },
+            { cost: 1000, cpsIncrease: 10 }
+        ];
 
         document.getElementById('clicker-button').addEventListener('click', () => {
             clicks += clickMultiplier;
@@ -33,10 +40,16 @@
             saveProgress();
         });
 
-        function buyUpgrade(cost, cpsIncrease) {
+        function buyUpgrade(baseCost, baseCpsIncrease, index) {
+            const upgrade = upgrades[index];
+            const cost = upgrade.cost;
+            const cpsIncrease = upgrade.cpsIncrease;
             if (clicks >= cost) {
                 clicks -= cost;
                 cps += cpsIncrease;
+                upgrades[index].cost = Math.floor(baseCost * 1.15 ** cpsIncrease); // Increase cost exponentially
+                upgrades[index].cpsIncrease = parseFloat((baseCpsIncrease * 1.1).toFixed(1)); // Increase cps incrementally
+                updateUpgradeButtons();
                 updateDisplay();
                 saveProgress();
             } else {
@@ -44,9 +57,16 @@
             }
         }
 
+        function updateUpgradeButtons() {
+            document.querySelectorAll('.upgrade-button').forEach((button, index) => {
+                const upgrade = upgrades[index];
+                button.innerHTML = `Buy +${upgrade.cpsIncrease} CPS (Cost: ${upgrade.cost} clicks)`;
+            });
+        }
+
         function updateDisplay() {
             document.getElementById('click-count').textContent = clicks;
-            document.getElementById('cps').textContent = cps;
+            document.getElementById('cps').textContent = cps.toFixed(1);
             document.getElementById('prestige-button').disabled = clicks < 10000;
         }
 
@@ -54,12 +74,15 @@
             localStorage.setItem('clicks', clicks);
             localStorage.setItem('cps', cps);
             localStorage.setItem('clickMultiplier', clickMultiplier);
+            localStorage.setItem('upgrades', JSON.stringify(upgrades));
         }
 
         function loadProgress() {
             clicks = parseInt(localStorage.getItem('clicks')) || 0;
-            cps = parseInt(localStorage.getItem('cps')) || 0;
+            cps = parseFloat(localStorage.getItem('cps')) || 0;
             clickMultiplier = parseInt(localStorage.getItem('clickMultiplier')) || 1;
+            upgrades = JSON.parse(localStorage.getItem('upgrades')) || upgrades;
+            updateUpgradeButtons();
             updateDisplay();
         }
 
@@ -68,7 +91,15 @@
                 clicks = 0;
                 cps = 0;
                 clickMultiplier *= 2;
+                upgrades = [
+                    { cost: 10, cpsIncrease: 0.1 },
+                    { cost: 50, cpsIncrease: 0.5 },
+                    { cost: 100, cpsIncrease: 1 },
+                    { cost: 500, cpsIncrease: 5 },
+                    { cost: 1000, cpsIncrease: 10 }
+                ];
                 saveProgress();
+                updateUpgradeButtons();
                 updateDisplay();
                 alert(`You have prestiged! Clicks are now worth ${clickMultiplier}x more!`);
             } else {
