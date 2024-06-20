@@ -2,130 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>Boring Clicker</title>
-    <link rel="stylesheet" href="style.css">
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            let password = prompt("Enter the password to access the website:");
-            if (password !== 'PaddyBraxKhye') {
-                alert("Incorrect password! Access denied.");
-                document.body.innerHTML = ''; // Clear the body content if the password is incorrect
-            }
-        });
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lolly Market</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Boring Clicker</h1>
-    <p>Clicks: <span id="click-count">0</span></p>
-    <p>Clicks per Second (CPS): <span id="cps">0</span></p>
-    <button id="clicker-button">Click me!</button>
-    <h2>Upgrades</h2>
-    <button class="upgrade-button" onclick="buyUpgrade(10, 0.01, 0)">Buy +0.01 CPS (Cost: 10 clicks)</button>
-    <button class="upgrade-button" onclick="buyUpgrade(50, 0.05, 1)">Buy +0.05 CPS (Cost: 50 clicks)</button>
-    <button class="upgrade-button" onclick="buyUpgrade(100, 0.1, 2)">Buy +0.10 CPS (Cost: 100 clicks)</button>
-    <button class="upgrade-button" onclick="buyUpgrade(500, 0.15, 3)">Buy +0.15 CPS (Cost: 500 clicks)</button>
-    <button class="upgrade-button" onclick="buyUpgrade(1000, 1, 4)">Buy +1 CPS (Cost: 1000 clicks)</button>
-    <br><br>
-    <button id="save-button">Save Progress</button>
-    <button id="load-button">Load Progress</button>
-    <button id="prestige-button" onclick="prestige()" disabled>Prestige</button>
-
-    <script>
-        let clicks = 0;
-        let cps = 0;
-        let clickMultiplier = 1;
-        let upgrades = [
-            { cost: 10, cpsIncrease: 0.01, baseCost: 10, baseCpsIncrease: 0.01 },
-            { cost: 50, cpsIncrease: 0.05, baseCost: 50, baseCpsIncrease: 0.05 },
-            { cost: 100, cpsIncrease: 0.1, baseCost: 100, baseCpsIncrease: 0.1 },
-            { cost: 500, cpsIncrease: 0.15, baseCost: 500, baseCpsIncrease: 0.15 },
-            { cost: 1000, cpsIncrease: 1, baseCost: 1000, baseCpsIncrease: 1 }
-        ];
-
-        document.getElementById('clicker-button').addEventListener('click', () => {
-            clicks += clickMultiplier;
-            updateDisplay();
-            saveProgress();
-        });
-
-        function buyUpgrade(baseCost, baseCpsIncrease, index) {
-            const upgrade = upgrades[index];
-            const cost = upgrade.cost;
-            const cpsIncrease = upgrade.cpsIncrease;
-            if (clicks >= cost) {
-                clicks -= cost;
-                cps += cpsIncrease;
-                upgrades[index].cost = Math.floor(upgrade.baseCost * Math.pow(1.15, index + 1)); // Increase cost exponentially
-                upgrades[index].cpsIncrease = parseFloat((upgrade.baseCpsIncrease * Math.pow(1.1, index + 1)).toFixed(2)); // Increase cps incrementally
-                updateUpgradeButtons();
-                updateDisplay();
-                saveProgress();
-            } else {
-                alert('Not enough clicks!');
-            }
-        }
-
-        function updateUpgradeButtons() {
-            document.querySelectorAll('.upgrade-button').forEach((button, index) => {
-                const upgrade = upgrades[index];
-                button.innerHTML = `Buy +${upgrade.cpsIncrease} CPS (Cost: ${upgrade.cost} clicks)`;
-            });
-        }
-
-        function updateDisplay() {
-            document.getElementById('click-count').textContent = clicks;
-            document.getElementById('cps').textContent = cps.toFixed(2);
-            document.getElementById('prestige-button').disabled = clicks < 10000;
-        }
-
-        function saveProgress() {
-            localStorage.setItem('clicks', clicks);
-            localStorage.setItem('cps', cps);
-            localStorage.setItem('clickMultiplier', clickMultiplier);
-            localStorage.setItem('upgrades', JSON.stringify(upgrades));
-        }
-
-        function loadProgress() {
-            clicks = parseInt(localStorage.getItem('clicks')) || 0;
-            cps = parseFloat(localStorage.getItem('cps')) || 0;
-            clickMultiplier = parseInt(localStorage.getItem('clickMultiplier')) || 1;
-            upgrades = JSON.parse(localStorage.getItem('upgrades')) || upgrades;
-            updateUpgradeButtons();
-            updateDisplay();
-        }
-
-        function prestige() {
-            if (clicks >= 10000) {
-                clicks = 0;
-                cps = 0;
-                clickMultiplier *= 2;
-                upgrades = [
-                    { cost: 10, cpsIncrease: 0.01, baseCost: 10, baseCpsIncrease: 0.01 },
-                    { cost: 50, cpsIncrease: 0.05, baseCost: 50, baseCpsIncrease: 0.05 },
-                    { cost: 100, cpsIncrease: 0.1, baseCost: 100, baseCpsIncrease: 0.1 },
-                    { cost: 500, cpsIncrease: 0.15, baseCost: 500, baseCpsIncrease: 0.15 },
-                    { cost: 1000, cpsIncrease: 1, baseCost: 1000, baseCpsIncrease: 1 }
-                ];
-                saveProgress();
-                updateUpgradeButtons();
-                updateDisplay();
-                alert(`You have prestiged! Clicks are now worth ${clickMultiplier}x more!`);
-            } else {
-                alert('You need at least 10,000 clicks to prestige!');
-            }
-        }
-
-        document.getElementById('save-button').addEventListener('click', saveProgress);
-        document.getElementById('load-button').addEventListener('click', loadProgress);
-
-        window.addEventListener('load', loadProgress);
-
-        setInterval(() => {
-            clicks += cps;
-            updateDisplay();
-            saveProgress();
-        }, 1000);
-    </script>
+    <div class="container">
+        <header>
+            <h1>Welcome to the Lolly Market</h1>
+            <p>Buy and sell lollies to make the most profit!</p>
+        </header>
+        <main>
+            <div class="market-info">
+                <div class="balance">Balance: $<span id="balance">100</span></div>
+                <div class="lollies">
+                    <span>Current Lollies: <span id="lollies">0</span></span>
+                </div>
+                <div class="price">
+                    <span>Current Lolly Price: $<span id="price">5</span></span>
+                </div>
+            </div>
+            <div class="actions">
+                <button id="buy">Buy Lollies</button>
+                <button id="sell">Sell Lollies</button>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2024 Lolly Market</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
