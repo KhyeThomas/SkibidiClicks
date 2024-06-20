@@ -1,73 +1,63 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(to right, #4facfe, #00f2fe);
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     color: #333;
-    text-align: center;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-h1 {
-    margin-top: 50px;
-    font-size: 48px;
-    color: #fff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-#clicker-button {
-    padding: 20px 40px;
-    font-size: 24px;
-    margin: 20px;
-    border: none;
-    background-color: #ffca28;
-    color: #333;
+.container {
+    background-color: #fff;
     border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 400px;
+    text-align: center;
 }
 
-#clicker-button:hover {
-    background-color: #ffb300;
-    transform: scale(1.05);
-}
-
-.upgrade-button {
-    padding: 10px 20px;
-    margin: 10px;
-    font-size: 18px;
-    border: none;
-    background-color: #4caf50;
+header {
+    background-color: #ff69b4;
     color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, transform 0.2s;
+    padding: 20px;
 }
 
-.upgrade-button:hover {
-    background-color: #43a047;
-    transform: scale(1.05);
+main {
+    padding: 20px;
 }
 
-p {
-    font-size: 24px;
-    color: #fff;
+.market-info {
+    margin-bottom: 20px;
 }
 
-h2 {
-    font-size: 32px;
-    margin-top: 30px;
-    color: #fff;
+.market-info div {
+    margin-bottom: 10px;
 }
 
-#save-button, #load-button, #prestige-button {
-    padding: 10px 20px;
-    margin: 10px;
-    font-size: 18px;
+.actions {
+    display: flex;
+    justify-content: space-around;
+}
+
+button {
+    background-color: #ff69b4;
     border: none;
-    background-color: #1e88e5;
     color: white;
-    border-radius: 5px;
+    padding: 10px 20px;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #ff85c0;
+}
+
+footer {
+    background-color: #ff69b4;
+    color: white;
+    padding: 10px;
+}
