@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skibidi Toilet Clicker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="top-bar">Skibidi Khye on Rizz</div>
+    <div class="game-container">
+        <header>
+            <h1>Skibidi Toilet Clicker</h1>
+        </header>
+        <main>
+            <div class="score-panel">
+                <p>Skibidi Points: <span id="score">0</span></p>
+                <p>Points per Click: <span id="points-per-click">1</span></p>
+                <p>Clicks per Second (CPS): <span id="cps">0</span></p>
+            </div>
+            <div class="button-panel">
+                <button class="game-button" id="main-clicker">Click the Toilet!</button>
+            </div>
+            <div class="upgrades-panel">
+                <h2>Upgrades</h2>
+                <button class="upgrade-button" id="upgrade-btn">Upgrade Flush (Cost: 10)</button>
+                <button class="upgrade-button" id="cps-upgrade-btn">Auto-Clicker (Cost: 50)</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Initial game state
+        let score = 0;
+        let increment = 1;
+        let upgradeCost = 10;
+        let cpsUpgradeCost = 50;
+        let cps = 0;
+
+        // DOM elements
+        const scoreElement = document.getElementById('score');
+        const pointsPerClickElement = document.getElementById('points-per-click');
+        const cpsElement = document.getElementById('cps');
+        const mainClickerButton = document.getElementById('main-clicker');
+        const upgradeButton = document.getElementById('upgrade-btn');
+        const cpsUpgradeButton = document.getElementById('cps-upgrade-btn');
+
+        // Click event for the main clicker
+        mainClickerButton.addEventListener('click', () => {
+            score += increment;
+            scoreElement.textContent = score;
+        });
+
+        // Click event for the upgrade button
+        upgradeButton.addEventListener('click', () => {
+            if (score >= upgradeCost) {
+                score -= upgradeCost;
+                increment += 1;
+                upgradeCost = Math.floor(upgradeCost * 1.5); // Increase the cost for the next upgrade
+                upgradeButton.textContent = `Upgrade Flush (Cost: ${upgradeCost})`;
+                scoreElement.textContent = score;
+                pointsPerClickElement.textContent = increment;
+            }
+        });
+
+        // Click event for the CPS upgrade button
+        cpsUpgradeButton.addEventListener('click', () => {
+            if (score >= cpsUpgradeCost) {
+                score -= cpsUpgradeCost;
+                cps += 1;
+                cpsUpgradeCost = Math.floor(cpsUpgradeCost * 2); // Increase the cost for the next upgrade
+                cpsUpgradeButton.textContent = `Auto-Clicker (Cost: ${cpsUpgradeCost})`;
+                scoreElement.textContent = score;
+                cpsElement.textContent = cps;
+
+                // Start auto-clicking
+                setInterval(() => {
+                    score += cps;
+                    scoreElement.textContent = score;
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
