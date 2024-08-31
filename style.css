@@ -1,0 +1,97 @@
+/* General body styling */
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #e0f7fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+/* Top bar styling */
+.top-bar {
+    width: 100%;
+    background-color: #004d40;
+    color: #ffffff;
+    padding: 15px;
+    text-align: center;
+    font-size: 20px;
+    position: absolute;
+    top: 0;
+}
+
+/* Game container */
+.game-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 350px;
+    margin-top: 80px; /* Added margin to accommodate the top bar */
+}
+
+/* Header styling */
+header h1 {
+    margin: 0;
+    color: #00796b;
+    font-size: 26px;
+    text-shadow: 2px 2px #004d40;
+}
+
+/* Main game layout */
+main {
+    margin-top: 20px;
+}
+
+/* Score panel */
+.score-panel {
+    background-color: #b2dfdb;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #004d40;
+}
+
+/* Button panel layout */
+.button-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Game buttons */
+.game-button, .upgrade-button {
+    padding: 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #00796b;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-shadow: 1px 1px #004d40;
+}
+
+.game-button:hover, .upgrade-button:hover {
+    background-color: #004d40;
+}
+
+.game-button:active, .upgrade-button:active {
+    background-color: #003d33;
+}
+
+/* Upgrades panel styling */
+.upgrades-panel {
+    margin-top: 20px;
+}
+
+.upgrades-panel h2 {
+    color: #00796b;
+    margin-bottom: 15px;
+}
